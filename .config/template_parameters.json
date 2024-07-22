@@ -1,0 +1,10 @@
+[
+    {
+        "Name": "name",
+        "Description": "",
+        "Type": "string",
+        "Default": "n/a",
+        "Required": "yes",
+        "Support": []
+    }
+]
