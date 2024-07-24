@@ -9,7 +9,7 @@ run "setup" {
 }
 
 variables {
-  managed_rules = [{
+  managed_rule_sets = [{
     type    = "OWASP"
     version = "3.2"
     }, {
