@@ -43,6 +43,9 @@
                 "editor.guides.bracketPairs": "active",
                 "editor.suggest.preview": true,
                 "explorer.compactFolders": false,
+                "files.associations": {
+                    "*.tftest.hcl": "terraform"
+                },
                 "files.autoSave": "afterDelay",
                 "git.autofetch": true,
                 "git.confirmSync": false,
