@@ -43,22 +43,22 @@ run "plan" {
   }
 
   assert {
-    condition     = azurerm_web_application_firewall_policy.main.managed_rules[0].managed_rule_set[0].type == var.managed_rule[0].type
+    condition     = azurerm_web_application_firewall_policy.main.managed_rules[0].managed_rule_set[0].type == var.managed_rule_sets[0].type
     error_message = "The managed rule set 1 type is being modified."
   }
 
   assert {
-    condition     = azurerm_web_application_firewall_policy.main.managed_rules[0].managed_rule_set[0].version == var.managed_rules[0].version
+    condition     = azurerm_web_application_firewall_policy.main.managed_rules[0].managed_rule_set[0].version == var.managed_rule_sets[0].version
     error_message = "The managed rule set 1 version is being modified."
   }
 
   assert {
-    condition     = azurerm_web_application_firewall_policy.main.managed_rules[0].managed_rule_set[1].type == var.managed_rules[1].type
+    condition     = azurerm_web_application_firewall_policy.main.managed_rules[0].managed_rule_set[1].type == var.managed_rule_sets[1].type
     error_message = "The managed rule set 2 type is being modified."
   }
 
   assert {
-    condition     = azurerm_web_application_firewall_policy.main.managed_rules[0].managed_rule_set[1].version == var.managed_rules[1].version
+    condition     = azurerm_web_application_firewall_policy.main.managed_rules[0].managed_rule_set[1].version == var.managed_rule_sets[1].version
     error_message = "The managed rule set 2 version is being modified."
   }
 }
