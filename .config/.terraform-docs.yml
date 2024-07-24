@@ -48,7 +48,7 @@ content: |
     {{ print "|" (ternary .Required "yes" "no") "|" }}
   {{ end }}{{ printf "\n" -}}
 
-  {{ template "table" dict "Resource" "template" "File" ".config/template_parameters.json" }}{{ printf "\n" -}}
+  {{ template "table" dict "Resource" "managed_rule_sets" "File" ".config/managed_rule_set_parameters.json" }}{{ printf "\n" -}}
 
   ## Outputs
 
