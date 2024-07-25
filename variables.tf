@@ -125,7 +125,8 @@ variable "managed_rule_exclusions" {
       })), [])
     }))
   }))
-  default = []
+  default     = []
+  description = "A mapping of managed rule exclusions to associate with the policy."
 
   validation {
     condition = alltrue([for exclusion in var.managed_rule_exclusions : contains([
