@@ -4,6 +4,11 @@ resource "azurerm_web_application_firewall_policy" "main" {
   location            = var.location
   tags                = var.tags
 
+  policy_settings {
+    enabled = var.enabled
+    mode    = var.mode
+  }
+
   managed_rules {
     dynamic "managed_rule_set" {
       for_each = var.managed_rule_sets
