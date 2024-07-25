@@ -62,27 +62,27 @@ run "plan" {
   }
 
   assert {
-    condition     = azurerm_web_application_firewall_policy.main.policy_settings.enabled == true
+    condition     = azurerm_web_application_firewall_policy.main.policy_settings[0].enabled == true
     error_message = "The Application Gateway Firewall Policy enabled setting is being modified."
   }
 
   assert {
-    condition     = azurerm_web_application_firewall_policy.main.policy_settings.mode == "Prevention"
+    condition     = azurerm_web_application_firewall_policy.main.policy_settings[0].mode == "Prevention"
     error_message = "The Application Gateway Firewall Policy mode setting is being modified."
   }
 
   assert {
-    condition     = azurerm_web_application_firewall_policy.main.policy_settings.request_body_inspect_limit_in_kb == 128
+    condition     = azurerm_web_application_firewall_policy.main.policy_settings[0].request_body_inspect_limit_in_kb == 128
     error_message = "The Application Gateway Firewall Policy request body inspect limit in KB setting is being modified."
   }
 
   assert {
-    condition     = azurerm_web_application_firewall_policy.main.policy_settings.max_request_body_size_in_kb == 128
+    condition     = azurerm_web_application_firewall_policy.main.policy_settings[0].max_request_body_size_in_kb == 128
     error_message = "The Application Gateway Firewall Policy max request body size in KB setting is being modified."
   }
 
   assert {
-    condition     = azurerm_web_application_firewall_policy.main.policy_settings.file_upload_limit_in_mb == 100
+    condition     = azurerm_web_application_firewall_policy.main.policy_settings[0].file_upload_limit_in_mb == 100
     error_message = "The Application Gateway Firewall Policy file upload limit in MB setting is being modified."
   }
 
