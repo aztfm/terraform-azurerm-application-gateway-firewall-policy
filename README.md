@@ -22,7 +22,12 @@ The following parameters are supported:
 |name|The name of the Application Gateway Firewall Policy.|`string`|n/a|yes|
 |resource\_group\_name|The name of the resource group in which to create the Application Gateway Firewall Policy.|`string`|n/a|yes|
 |location|The location/region where the Application Gateway Firewall Policy is created.|`string`|n/a|yes|
-|tags|A mapping of tags to assign to the resource.|`map(string)`|`null`|no|
+|tags|A mapping of tags to assign to the resource.|`map(string)`|`{}`|no|
+|enabled|Describes if the policy is in enabled state or disabled state.|`bool`|`true`|no|
+|mode|Describes if it is in detection mode or prevention mode at the policy level. Valid values are `Detection` and `Prevention`.|`string`|`"Prevention"`|no|
+|request\_body\_inspect\_limit\_in\_kb|The maximum request body inspection size in KB for the policy.|`number`|`128`|no|
+|max\_request\_body\_size\_in\_kb|The maximum request body size in KB for the policy.|`number`|`128`|no|
+|file\_upload\_limit\_in\_mb|The maximum file upload size in MB for the policy.|`number`|`100`|no|
 |managed\_rule\_sets|A mapping of managed rule set types and versions to associate with the policy.|`list(object({}))`|n/a|yes|
 |managed\_rule\_exclusions|n/a|`list(object({}))`|`[]`|no|
 

@@ -46,8 +46,6 @@ run "plan" {
     location            = run.setup.resource_group_location
   }
 
-  #region Managed Rule Sets
-
   assert {
     condition     = azurerm_web_application_firewall_policy.main.name == run.setup.workspace_id
     error_message = "The Application Gateway Firewall Policy name input variable is being modified."
@@ -62,6 +60,33 @@ run "plan" {
     condition     = azurerm_web_application_firewall_policy.main.location == run.setup.resource_group_location
     error_message = "The Application Gateway Firewall Policy location input variable is being modified."
   }
+
+  assert {
+    condition     = azurerm_web_application_firewall_policy.main.policy_settings[0].enabled == true
+    error_message = "The Application Gateway Firewall Policy enabled setting is being modified."
+  }
+
+  assert {
+    condition     = azurerm_web_application_firewall_policy.main.policy_settings[0].mode == "Prevention"
+    error_message = "The Application Gateway Firewall Policy mode setting is being modified."
+  }
+
+  assert {
+    condition     = azurerm_web_application_firewall_policy.main.policy_settings[0].request_body_inspect_limit_in_kb == 128
+    error_message = "The Application Gateway Firewall Policy request body inspect limit in KB setting is being modified."
+  }
+
+  assert {
+    condition     = azurerm_web_application_firewall_policy.main.policy_settings[0].max_request_body_size_in_kb == 128
+    error_message = "The Application Gateway Firewall Policy max request body size in KB setting is being modified."
+  }
+
+  assert {
+    condition     = azurerm_web_application_firewall_policy.main.policy_settings[0].file_upload_limit_in_mb == 100
+    error_message = "The Application Gateway Firewall Policy file upload limit in MB setting is being modified."
+  }
+
+  #region Managed Rule Sets
 
   assert {
     condition     = azurerm_web_application_firewall_policy.main.managed_rules[0].managed_rule_set[0].type == var.managed_rule_sets[0].type

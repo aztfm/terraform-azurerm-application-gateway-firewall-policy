@@ -15,8 +15,58 @@ variable "location" {
 
 variable "tags" {
   type        = map(string)
-  default     = null
+  default     = {}
   description = "A mapping of tags to assign to the resource."
+}
+
+variable "enabled" {
+  type        = bool
+  default     = true
+  description = "Describes if the policy is in enabled state or disabled state."
+}
+
+variable "mode" {
+  type        = string
+  default     = "Prevention"
+  description = "Describes if it is in detection mode or prevention mode at the policy level. Valid values are `Detection` and `Prevention`."
+
+  validation {
+    condition     = contains(["Detection", "Prevention"], var.mode)
+    error_message = "The mode must be either Detection or Prevention."
+  }
+}
+
+variable "request_body_inspect_limit_in_kb" {
+  type        = number
+  default     = 128
+  description = "The maximum request body inspection size in KB for the policy."
+
+  validation {
+    condition     = var.request_body_inspect_limit_in_kb >= 8 && var.request_body_inspect_limit_in_kb <= 2000
+    error_message = "The request body inspection limit must be between 8 and 2000 KB."
+  }
+}
+
+variable "max_request_body_size_in_kb" {
+  type        = number
+  default     = 128
+  description = "The maximum request body size in KB for the policy."
+
+  validation {
+    condition     = var.max_request_body_size_in_kb >= 8 && var.max_request_body_size_in_kb <= 2000
+    error_message = "The request body size must be between 8 and 2000 KB."
+  }
+}
+
+variable "file_upload_limit_in_mb" {
+  type        = number
+  default     = 100
+  description = "The maximum file upload size in MB for the policy."
+
+  validation {
+    condition     = var.file_upload_limit_in_mb >= 1 && var.file_upload_limit_in_mb <= 4000
+    error_message = "The file upload limit must be between 1 and 4000 MB."
+  }
 }
 
 variable "managed_rule_sets" {
