@@ -12,6 +12,33 @@
 | -------------- | ----------------- | --------------- |
 | >= 1.x.x       | >= 1.9.x          | >= 3.112.0      |
 
+## Usage
+
+```hcl
+resource "azurerm_resource_group" "rg" {
+  name     = "resource-group"
+  location = "Spain Central"
+}
+
+module "application_gateway_firewall_policy" {
+  source              = "aztfm/application-gateway-firewall-policy/azurerm"
+  version             = ">=1.0.0"
+  name                = "application-gateway-firewall-policy"
+  resource_group_name = azurerm_resource_group.rg.name
+  location            = azurerm_resource_group.rg.location
+  tags                = azurerm_resource_group.rg.tags
+  managed_rule_sets = [{
+    type    = "OWASP"
+    version = "3.2"
+    }, {
+    type    = "Microsoft_BotManagerRuleSet"
+    version = "1.0"
+  }]
+}
+```
+
+Reference to more [examples](https://github.com/aztfm/terraform-azurerm-application-gateway-firewall-policy/tree/main/examples).
+
 <!-- BEGIN_TF_DOCS -->
 ## Parameters
 
@@ -29,7 +56,7 @@ The following parameters are supported:
 |max\_request\_body\_size\_in\_kb|The maximum request body size in KB for the policy.|`number`|`128`|no|
 |file\_upload\_limit\_in\_mb|The maximum file upload size in MB for the policy.|`number`|`100`|no|
 |managed\_rule\_sets|A mapping of managed rule set types and versions to associate with the policy.|`list(object({}))`|n/a|yes|
-|managed\_rule\_exclusions|n/a|`list(object({}))`|`[]`|no|
+|managed\_rule\_exclusions|A mapping of managed rule exclusions to associate with the policy.|`list(object({}))`|`[]`|no|
 
 The `managed_rule_sets` supports the following:
 
