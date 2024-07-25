@@ -2,7 +2,7 @@
 
 [![pre-commit](https://img.shields.io/badge/pre--commit-enabled-brightgreen?logo=pre-commit)](https://github.com/pre-commit/pre-commit)
 [![Terraform Registry](https://img.shields.io/badge/terraform-registry-blueviolet.svg)](https://registry.terraform.io/modules/aztfm/application-gateway-firewall-policy/azurerm/)
-![GitHub release (latest by date)](https://img.shields.io/github/v/release/aztfm/terraform-azurerm-terraform-azurerm-application-gateway-firewall-policy)
+![GitHub release (latest by date)](https://img.shields.io/github/v/release/aztfm/terraform-azurerm-application-gateway-firewall-policy)
 
 [![Open in GitHub Codespaces](https://github.com/codespaces/badge.svg)](https://codespaces.new/aztfm/terraform-azurerm-application-gateway-firewall-policy?quickstart=1)
 
