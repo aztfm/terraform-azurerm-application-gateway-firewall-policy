@@ -28,7 +28,7 @@ variable "managed_rule_sets" {
 
   validation {
     condition     = alltrue([for rule in var.managed_rule_sets : contains(["OWASP", "Microsoft_DefaultRuleSet", "Microsoft_BotManagerRuleSet"], rule.type)])
-    error_message = "All managed rules types must be OWASP, Microsoft_DefaultRuleSet or Microsoft_BotManagerRuleSet."
+    error_message = "All managed rule set types must be OWASP, Microsoft_DefaultRuleSet or Microsoft_BotManagerRuleSet."
   }
 
   validation {
@@ -59,5 +59,68 @@ variable "managed_rule_sets" {
   validation {
     condition     = length([for rule in var.managed_rule_sets : rule.type]) == length(distinct([for rule in var.managed_rule_sets : rule.type]))
     error_message = "There can only be one rule of each type."
+  }
+}
+
+variable "managed_rule_exclusions" {
+  type = list(object({
+    match_variable          = string
+    selector_match_operator = string
+    selector                = string
+    rule_set = optional(object({
+      type = string
+      rule_groups = optional(list(object({
+        rule_group_name = string
+        excluded_rules  = list(number)
+      })), [])
+    }))
+  }))
+  default = []
+
+  validation {
+    condition = alltrue([for exclusion in var.managed_rule_exclusions : contains([
+      "RequestArgKeys", "RequestArgNames", "RequestArgValues",
+      "RequestCookieKeys", "RequestCookieNames", "RequestCookieValues",
+      "RequestHeaderKeys", "RequestHeaderNames", "RequestHeaderValues"
+    ], exclusion.match_variable)])
+    error_message = "All managed rule exclusion match variables must be RequestArgKeys, RequestArgNames, RequestArgValues, RequestCookieKeys, RequestCookieNames, RequestCookieValues, RequestHeaderKeys, RequestHeaderNames or RequestHeaderValues."
+  }
+
+  validation {
+    condition     = alltrue([for exclusion in var.managed_rule_exclusions : contains(["Contains", "EndsWith", "Equals", "EqualsAny", "StartsWith"], exclusion.selector_match_operator)])
+    error_message = "All managed rule exclusion selector match operators must be Contains, EndsWith, Equals, EqualsAny or StartsWith."
+  }
+
+  validation {
+    condition     = alltrue([for exclusion in var.managed_rule_exclusions : contains(["OWASP", "Microsoft_DefaultRuleSet"], exclusion.rule_set.type) if exclusion.rule_set != null])
+    error_message = "All managed rule exclusion rule set types must be OWASP or Microsoft_DefaultRuleSet."
+  }
+
+  validation {
+    condition = alltrue([for exclusion in var.managed_rule_exclusions :
+      alltrue([for rule_group in exclusion.rule_set.rule_groups :
+        contains([
+          "BadBots", "crs_20_protocol_violations", "crs_21_protocol_anomalies", "crs_23_request_limits", "crs_30_http_policy", "crs_35_bad_robots",
+          "crs_40_generic_attacks", "crs_41_sql_injection_attacks", "crs_41_xss_attacks", "crs_42_tight_security", "crs_45_trojans", "crs_49_inbound_blocking",
+          "General", "GoodBots", "KnownBadBots", "Known-CVEs", "REQUEST-911-METHOD-ENFORCEMENT", "REQUEST-913-SCANNER-DETECTION", "REQUEST-920-PROTOCOL-ENFORCEMENT",
+          "REQUEST-921-PROTOCOL-ATTACK", "REQUEST-930-APPLICATION-ATTACK-LFI", "REQUEST-931-APPLICATION-ATTACK-RFI", "REQUEST-932-APPLICATION-ATTACK-RCE",
+          "REQUEST-933-APPLICATION-ATTACK-PHP", "REQUEST-941-APPLICATION-ATTACK-XSS", "REQUEST-942-APPLICATION-ATTACK-SQLI", "REQUEST-943-APPLICATION-ATTACK-SESSION-FIXATION",
+          "REQUEST-944-APPLICATION-ATTACK-JAVA", "UnknownBots", "METHOD-ENFORCEMENT", "PROTOCOL-ENFORCEMENT", "PROTOCOL-ATTACK", "LFI", "RFI", "RCE", "PHP", "NODEJS", "XSS",
+          "SQLI", "FIX", "JAVA", "MS-ThreatIntel-WebShells", "MS-ThreatIntel-AppSec", "MS-ThreatIntel-SQLI", "MS-ThreatIntel-CVEs", "MS-ThreatIntel-AppSec", "MS-ThreatIntel-SQLI",
+          "MS-ThreatIntel-CVEs"
+        ], rule_group.rule_group_name)
+    ]) if exclusion.rule_set != null])
+    error_message = "All managed rule exclusion rule group names must be BadBots, crs_20_protocol_violations, crs_21_protocol_anomalies, crs_23_request_limits, crs_30_http_policy, crs_35_bad_robots, crs_40_generic_attacks, crs_41_sql_injection_attacks, crs_41_xss_attacks, crs_42_tight_security, crs_45_trojans, crs_49_inbound_blocking, General, GoodBots, KnownBadBots, Known-CVEs, REQUEST-911-METHOD-ENFORCEMENT, REQUEST-913-SCANNER-DETECTION, REQUEST-920-PROTOCOL-ENFORCEMENT, REQUEST-921-PROTOCOL-ATTACK, REQUEST-930-APPLICATION-ATTACK-LFI, REQUEST-931-APPLICATION-ATTACK-RFI, REQUEST-932-APPLICATION-ATTACK-RCE, REQUEST-933-APPLICATION-ATTACK-PHP, REQUEST-941-APPLICATION-ATTACK-XSS, REQUEST-942-APPLICATION-ATTACK-SQLI, REQUEST-943-APPLICATION-ATTACK-SESSION-FIXATION, REQUEST-944-APPLICATION-ATTACK-JAVA, UnknownBots, METHOD-ENFORCEMENT, PROTOCOL-ENFORCEMENT, PROTOCOL-ATTACK, LFI, RFI, RCE, PHP, NODEJS, XSS, SQLI, FIX, JAVA, MS-ThreatIntel-WebShells, MS-ThreatIntel-AppSec, MS-ThreatIntel-SQLI, MS-ThreatIntel-CVEs, MS-ThreatIntel-AppSec, MS-ThreatIntel-SQLI and MS-ThreatIntel-CVEs"
+  }
+
+  validation {
+    condition = alltrue([for exclusion in var.managed_rule_exclusions :
+      alltrue([for rule_group in exclusion.rule_set.rule_groups :
+        alltrue([for rule in rule_group.excluded_rules :
+          can(regex("^[0-9]{6}$", tonumber(rule)))
+        ])
+      ]) if exclusion.rule_set != null]
+    )
+    error_message = "All managed rule exclusion rules must be 6-digit numbers."
   }
 }

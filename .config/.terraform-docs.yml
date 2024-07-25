@@ -48,7 +48,10 @@ content: |
     {{ print "|" (ternary .Required "yes" "no") "|" }}
   {{ end }}{{ printf "\n" -}}
 
-  {{ template "table" dict "Resource" "managed_rule_sets" "File" ".config/managed_rule_set_parameters.json" }}{{ printf "\n" -}}
+  {{ template "table" dict "Resource" "managed_rule_sets" "File" ".config/managed_rule_set_parameters.json" }}
+  {{ template "table" dict "Resource" "managed_rule_exclusions" "File" ".config/managed_rule_exclusion_parameters.json" }}
+  {{ template "table" dict "Resource" "managed_rule_exclusions.rule_set" "File" ".config/managed_rule_exclusions_rule_set_parameters.json" }}
+  {{ template "table" dict "Resource" "managed_rule_exclusions.rule_set.rule_groups" "File" ".config/managed_rule_exclusions_rule_set_rule_group_parameters.json" }}{{ printf "\n" -}}
 
   ## Outputs
 

@@ -1,0 +1,21 @@
+[
+    {
+        "Name": "type",
+        "Description": "The rule set type. The only possible value include",
+        "Type": "string",
+        "Default": "n/a",
+        "Required": "yes",
+        "Support": [
+            "Microsoft_DefaultRuleSet",
+            "OWASP"
+        ]
+    },
+    {
+        "Name": "rule_groups",
+        "Description": "The rule groups to exclude from the rule set.",
+        "Type": "list(object({})",
+        "Default": "[]",
+        "Required": "no",
+        "Support": []
+    }
+]
