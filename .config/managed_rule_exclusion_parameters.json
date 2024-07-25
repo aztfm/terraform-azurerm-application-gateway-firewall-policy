@@ -1,0 +1,50 @@
+[
+    {
+        "Name": "match_variable",
+        "Description": "The name of the Match Variable. Possible values:",
+        "Type": "string",
+        "Default": "n/a",
+        "Required": "yes",
+        "Support": [
+            "RequestArgKeys",
+            "RequestArgNames",
+            "RequestArgValues",
+            "RequestCookieKeys",
+            "RequestCookieNames",
+            "RequestCookieValues",
+            "RequestHeaderKeys",
+            "RequestHeaderNames",
+            "RequestHeaderValues"
+        ]
+    },
+    {
+        "Name": "selector_match_operator",
+        "Description": "Describes operator to be matched. Possible values:",
+        "Type": "string",
+        "Default": "n/a",
+        "Required": "yes",
+        "Support": [
+            "Contains",
+            "EndsWith",
+            "Equals",
+            "EqualsAny",
+            "StartsWith"
+        ]
+    },
+    {
+        "Name": "selector",
+        "Description": "Describes field of the matchVariable collection.",
+        "Type": "string",
+        "Default": "n/a",
+        "Required": "yes",
+        "Support": []
+    },
+    {
+        "Name": "rule_set",
+        "Description": "The rule set to be excluded.",
+        "Type": "object({})",
+        "Default": "null",
+        "Required": "no",
+        "Support": []
+    }
+]
