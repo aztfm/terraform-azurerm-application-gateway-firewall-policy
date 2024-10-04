@@ -15,7 +15,7 @@ content: |
   {{ define "table" }}{{ printf "The `%s` supports the following:" .Resource }}
 
   | Name | Description | Type | Default | Required |
-  | ---- | ------------| :--: | :-----: | :------: |
+  | ---- | ----------- | :--: | :-----: | :------: |
   {{ range include .File | fromJson -}}
     {{ print "|" (.Name | sanitizeMarkdownTbl) -}}
     {{ $z := len .Support }}{{ if ne $z 0 }}{{ print "|" .Description -}}
@@ -31,7 +31,7 @@ content: |
     {{ printf "|%s|" .Required }}
   {{ end }}{{ end -}}
 
-  ## Parameters
+  ## :arrow_forward: Parameters
 
   The following parameters are supported:
 
@@ -53,12 +53,12 @@ content: |
   {{ template "table" dict "Resource" "managed_rule_exclusions.rule_set" "File" ".config/managed_rule_exclusions_rule_set_parameters.json" }}
   {{ template "table" dict "Resource" "managed_rule_exclusions.rule_set.rule_groups" "File" ".config/managed_rule_exclusions_rule_set_rule_group_parameters.json" }}{{ printf "\n" -}}
 
-  ## Outputs
+  ## :arrow_backward: Outputs
 
   The following outputs are exported:
 
   | Name | Description | Sensitive |
-  | ---- | ------------| :-------: |
+  | ---- | ----------- | :-------: |
   {{ range .Module.Outputs -}}
     {{ print "|" .Name -}}
     {{ print "|" (toString .Description | sanitizeMarkdownTbl) -}}
