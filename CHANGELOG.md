@@ -1,4 +1,9 @@
-<!-- markdownlint-disable MD041 -->
+## 1.1.0 (Unreleased)
+
+FIXES:
+
+- The parameters `request_body_inspect_limit_in_kb`, `max_request_body_size_in_kb` and `file_upload_limit_in_mb` are now functional.
+
 ## 1.0.0 (July 25, 2024)
 
 FEATURES:
@@ -11,6 +16,7 @@ FEATURES:
 - **New Parameter:** `mode`
 - **New Parameter:** `request_body_inspect_limit_in_kb`
 - **New Parameter:** `max_request_body_size_in_kb`
+- **New Parameter:** `file_upload_limit_in_mb`
 - **New Parameter:** `managed_rule_sets`
 - **New Parameter:** `managed_rule_sets.type`
 - **New Parameter:** `managed_rule_sets.version`

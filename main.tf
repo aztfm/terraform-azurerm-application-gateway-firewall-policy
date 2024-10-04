@@ -5,8 +5,11 @@ resource "azurerm_web_application_firewall_policy" "main" {
   tags                = var.tags
 
   policy_settings {
-    enabled = var.enabled
-    mode    = var.mode
+    enabled                          = var.enabled
+    mode                             = var.mode
+    request_body_inspect_limit_in_kb = var.request_body_inspect_limit_in_kb
+    max_request_body_size_in_kb      = var.max_request_body_size_in_kb
+    file_upload_limit_in_mb          = var.file_upload_limit_in_mb
   }
 
   managed_rules {

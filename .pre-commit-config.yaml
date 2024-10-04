@@ -1,6 +1,6 @@
 repos:
   - repo: https://github.com/antonbabenko/pre-commit-terraform
-    rev: v1.92.0
+    rev: v1.96.1
     hooks:
       - id: terraform_fmt
         name: Format Terraform code
@@ -10,17 +10,17 @@ repos:
 
       - id: terraform_tflint
         name: Validate Terraform tests
-        exclude: ^(examples)
+        exclude: ^(examples|tests)
         args:
+          - --args=--enable-rule=terraform_comment_syntax
           - --args=--enable-rule=terraform_documented_outputs
           - --args=--enable-rule=terraform_documented_variables
           - --args=--enable-rule=terraform_naming_convention
-          - --args=--enable-rule=terraform_unused_required_providers
           - --args=--enable-rule=terraform_standard_module_structure
-          - --args=--filter=tests/environments
+          - --args=--enable-rule=terraform_unused_required_providers
 
   - repo: https://github.com/igorshubovych/markdownlint-cli
-    rev: v0.41.0
+    rev: v0.42.0
     hooks:
       - id: markdownlint
         name: Validate Markdown text
@@ -41,7 +41,7 @@ repos:
         fail_fast: true
 
   - repo: https://github.com/antonbabenko/pre-commit-terraform
-    rev: v1.92.0
+    rev: v1.96.1
     hooks:
       - id: terraform_validate
         name: Validate Terraform code
